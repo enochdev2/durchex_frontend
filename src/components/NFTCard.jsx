@@ -70,7 +70,7 @@ const NFTCard = ({ collectionName, currentlyListed,
         <img className="w-full h-96 top-0 object-cover absolute -z-1" src={image} alt={name} />
       <div className="aspect-square bg-gray-700"></div>
       <div className="w-full mx-auto h-5">
-          <button className="w-full bg-blue-600  rounded-lg" onClick={(e) => handleBuy()}>
+          <button className="w-full bg-green-600 h-10 text-xl font-extrabold rounded-lg" onClick={(e) => handleBuy()}>
             Buy NFT
           </button>
         </div>
@@ -79,17 +79,17 @@ const NFTCard = ({ collectionName, currentlyListed,
       <div className="p-4 relative">
         <p className="text-gray-400 text-sm">{collectionName}</p>
         <h3 className="text-white font-semibold mt-1">{name}</h3>
-        <div className="flex justify-between mt-2">
+        <div className="flex justify-between mt-2 flex-col">
           <div>
             <p className="text-green-700 text-lg font-bold ">{prices}POL</p>
             <p className="text-white text-sm">{currentlyListed ? "Listed" : "Not Listed"}</p>
           </div>
-          <div className="text-right">
-            <p className="text-gray-400 text-xs">{itemId}</p>
-            <p className="text-gray-400 text-xs">{seller}</p>
-            <p className="text-gray-400 text-xs">{owner}</p>
-            <p className="text-gray-400 text-xs">{tokenId}</p>
-            <p className="text-gray-400 text-xs">{nftContract}</p>
+          <div className="text-left">
+            <p className="text-gray-400 text-xs"><b>ItemId:</b> {itemId}</p>
+            <p className="text-gray-400 text-xs"><b>Seller:</b>  {seller}</p>
+            <p className="text-gray-400 text-xs"><b>Owner:</b>{owner}</p>
+            <p className="text-gray-400 text-xs"><b>Token ID:</b> {tokenId}</p>
+            <p className="text-gray-400 text-xs"><b>Contract Add.:</b>  {nftContract}</p>
             <p className="text-white text-sm">No bids yet</p>
           </div>
           
