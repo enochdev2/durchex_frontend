@@ -67,7 +67,7 @@ const NFTCard = ({ collectionName, currentlyListed,
 
   return (
     <div className="bg-gray-800 rounded-lg overflow-hidden relative">
-        <img className="w-full h-96 top-0 object-cover absolute" src={image} alt={name} />
+        <img className="w-full h-96 top-0 object-cover absolute z-0" src={image} alt={name} />
       <div className="aspect-square bg-gray-700"></div>
       <div className="w-full mx-auto h-5">
           <button className="w-full bg-blue-600  rounded-lg" onClick={(e) => handleBuy()}>
