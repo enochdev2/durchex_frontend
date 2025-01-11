@@ -69,33 +69,37 @@ const NFTCard = ({ collectionName, currentlyListed,
     <div className="bg-gray-800 rounded-lg overflow-hidden relative">
         <img className="w-full h-96 top-0 object-cover absolute -z-1" src={image} alt={name} />
       <div className="aspect-square bg-gray-700"></div>
-      <div className="w-full mx-auto h-5">
-          <button className="w-full bg-green-600 h-10 text-xl font-extrabold rounded-lg" onClick={(e) => handleBuy()}>
+      <div className="w-full mx-auto absolute">
+          <button className="w-full bg-green-600 px-5 text-xl font-extrabold rounded-lg" onClick={(e) => handleBuy()}>
             Buy NFT
           </button>
         </div>
-      <Link
+        <div>
+      <Link 
       to={`nft/${tokenId}`}>
-      <div className="p-4 relative">
-        <p className="text-gray-400 text-sm">{collectionName}</p>
-        <h3 className="text-white font-semibold mt-1">{name}</h3>
+      <div className="p-4">
         <div className="flex justify-between mt-2 flex-col">
           <div>
             <p className="text-green-700 text-lg font-bold ">{prices}POL</p>
+           <h3 className="text-white font-semibold mt-1">{name}</h3>
+           <p className="text-gray-400 text-sm">{collectionName}</p>
             <p className="text-white text-sm">{currentlyListed ? "Listed" : "Not Listed"}</p>
           </div>
           <div className="text-left">
+            <div className="flex justify-between">
             <p className="text-gray-400 text-xs"><b>ItemId:</b> {itemId}</p>
+            <p className="text-gray-400 text-xs"><b>Token ID:</b> {tokenId}</p>
+            </div>
             <p className="text-gray-400 text-xs"><b>Seller:</b>  {seller}</p>
             <p className="text-gray-400 text-xs"><b>Owner:</b>{owner}</p>
-            <p className="text-gray-400 text-xs"><b>Token ID:</b> {tokenId}</p>
             <p className="text-gray-400 text-xs"><b>Contract Add.:</b>  {nftContract}</p>
-            <p className="text-white text-sm">No bids yet</p>
+            {/* <p className="text-white text-sm">No bids yet</p> */}
           </div>
           
         </div>
       </div>
       </Link>
+        </div>
     </div>
   );
 };
