@@ -12,32 +12,30 @@ import { ICOContent } from "../Context";
 
 export default function NftCreatorForm() {
   const contexts = useContext(ICOContent);
-      const {
-          shortenAddress,
-          isAuthorizedVendor,
-          address,
-          vendorMint,
-        publicMint,
-          connectWallet,
-      } = contexts;
-
+  const {
+    shortenAddress,
+    isAuthorizedVendor,
+    address,
+    vendorMint,
+    publicMint,
+    connectWallet,
+  } = contexts;
 
   const [file, setFile] = useState(null);
   const [dragActive, setDragActive] = useState(false);
 
-    const [formNftData, setFormNftData] = useState({
-      price: "",
-      name: "",
-      creator: "",
-      image: "",
-      description: "",
-      properties: "",
-      category: "",
-    });
-    const [imageURL, setimageURL] = useState(
-      "https://copper-leading-yak-964.mypinata.cloud/ipfs/Qma7g6tpfB1zAyfRFVkBgb8Cms6Vd2wpEjvN8p3MJ1ekaJ"
-    );
-  
+  const [formNftData, setFormNftData] = useState({
+    price: "",
+    name: "",
+    creator: "",
+    image: "",
+    description: "",
+    properties: "",
+    category: "",
+  });
+  const [imageURL, setimageURL] = useState(
+    "https://copper-leading-yak-964.mypinata.cloud/ipfs/Qma7g6tpfB1zAyfRFVkBgb8Cms6Vd2wpEjvN8p3MJ1ekaJ"
+  );
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -48,7 +46,6 @@ export default function NftCreatorForm() {
       setDragActive(false);
     }
   };
-
 
   const handleImageChange = (e) => {
     const file = e.target.files ? e.target.files[0] : e.dataTransfer.files[0];
@@ -119,7 +116,7 @@ export default function NftCreatorForm() {
           import.meta.env.VITE_APP_PINATA_API_KEY
         );
 
-     //   https://copper-leading-yak-964.mypinata.cloud/ipfs/Qma7g6tpfB1zAyfRFVkBgb8Cms6Vd2wpEjvN8p3MJ1ekaJ
+        //   https://copper-leading-yak-964.mypinata.cloud/ipfs/Qma7g6tpfB1zAyfRFVkBgb8Cms6Vd2wpEjvN8p3MJ1ekaJ
 
         const response = await axios({
           method: "post",
@@ -167,7 +164,7 @@ export default function NftCreatorForm() {
       return;
 
     if (imageURL) {
-      console.log("🚀 ~ uploadJSONToIPFS ~ imageURL:", imageURL)
+      console.log("🚀 ~ uploadJSONToIPFS ~ imageURL:", imageURL);
       try {
         // setLoader(true);
         const data = JSON.stringify({
@@ -223,7 +220,7 @@ export default function NftCreatorForm() {
       return ErrorToast("Upload a NFT image !");
     }
     try {
-      console.log("🚀 ~ HandleMintNFT ~ formNftData:", formNftData)
+      console.log("🚀 ~ HandleMintNFT ~ formNftData:", formNftData);
       const Uri = await uploadJSONToIPFS(formNftData);
       console.log("🚀 ~ HandleMintNFT ~ Uri :", Uri);
       // const metaData =
@@ -234,11 +231,10 @@ export default function NftCreatorForm() {
       //   import.meta.env.VITE_APP_NFTMARKETPLACE_CONTRACT_ADDRESS
       // );
 
-      
-      const nftmarketplace =
-        import.meta.env.VITE_APP_NFTMARKETPLACE_CONTRACT_ADDRESS;
+      const nftmarketplace = import.meta.env
+        .VITE_APP_NFTMARKETPLACE_CONTRACT_ADDRESS;
 
-      const reallyTrue =  await isAuthorizedVendor(address)
+      const reallyTrue = await isAuthorizedVendor(address);
       // const reallyTrue = await isAuthorizedVendor(UserEthAccount.account);
       console.log("🚀 ~ HandleMintNFT ~ reallyTrue:", reallyTrue);
 
@@ -301,15 +297,10 @@ export default function NftCreatorForm() {
             ErrorToast(<div>Something error happen try agin 💔 !</div>);
           });
       }
-
-     
-
-
     } catch (error) {
       console.error(error);
     }
   };
-
 
   const HandleOnChange = (e) => {
     setFormNftData({
@@ -328,15 +319,6 @@ export default function NftCreatorForm() {
   //   e.preventDefault();
   //   handleImageChange(e);
   // };
-
-
-
-
-
-
-
-
-
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -377,7 +359,7 @@ export default function NftCreatorForm() {
 
     console.log("Form submitted:", Object.fromEntries(formData));
   };
- 
+
   return (
     <div className="min-h-screen bg-[#18161D] text-white">
       <nav className="flex items-center justify-between p-4 border-gray-800">
@@ -401,7 +383,7 @@ export default function NftCreatorForm() {
           <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500" />
         </div>
       </nav>
-      <main className="container mx-auto px-4 py-8">
+      {/* <main className="container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold mb-8 text-center">Create new NFT</h1>
         <div className="flex items-center space-x-3">
           <Link to="/create">
@@ -540,133 +522,132 @@ export default function NftCreatorForm() {
             </div>
           </form>
         </div>
-      </main>
-      
-
+      </main> */}
 
       <div className="flex flex-col p-2 sm:p-5 gap-5 overflow-y-auto h-[89%] w-full">
-      <Toaster position="left" />
-      <h1 className="text-white/90 font-semibold text-xl sm:text-2xl mt-4">
-        Create New NFT
-      </h1>
-      <div className="flex flex-row gap-2 items-center text-sm sm:text-base sm:mt-4  text-white/70">
-        <BsStars />
-        <p>You have to pay a gas for update the NFT</p>
-      </div>
-      <div className="flex lg:flex-row flex-col gap-8">
-        <label
-          onDragOver={(e) => e.preventDefault()}
-          onDragLeave={(e) => e.preventDefault()}
-          onDrop={handleDrop}
-          htmlFor="imageUpload"
-          id="image-box"
-          className="flex-1 xl:mx-10 xl:my-10 xl:w-[35%] w-full h-[40pc] rounded-xl outline-dashed outline-pink-500/30 flex overflow-hidden flex-col dark:bg-darkBlue-500 p-3 gap-3 items-center justify-center"
-        >
-          <img
-            src=""
-            id="NFTPreview"
-            className="rounded-xl hidden w-full h-max"
-            alt=""
-          />
-          <div
-            id="Upload-ui"
-            className="gap-3 items-center justify-center flex flex-col"
+        <Toaster position="left" />
+        <h1 className="text-white/90 font-semibold text-xl sm:text-2xl mt-4">
+          Create New NFT
+        </h1>
+        <div className="flex flex-row gap-2 items-center text-sm sm:text-base sm:mt-4  text-white/70">
+          <BsStars />
+          <p>You have to pay a gas for update the NFT</p>
+        </div>
+        <div className="flex lg:flex-row flex-col gap-8">
+          <label
+            onDragOver={(e) => e.preventDefault()}
+            onDragLeave={(e) => e.preventDefault()}
+            onDrop={handleDrop}
+            htmlFor="imageUpload"
+            id="image-box"
+            className="flex-1 xl:mx-10 xl:my-10 xl:w-[35%] w-full h-[40pc] rounded-xl outline-dashed outline-pink-500/30 flex overflow-hidden flex-col dark:bg-darkBlue-500 p-3 gap-3 items-center justify-center"
           >
-            <TiUpload className="text-purple-500 text-2xl" />
-            <b className="text-white/80 text-sm sm:text-base">Upload File</b>
-            <span className="text-white/70 text-sm sm:text-base">
-              Drag or choose your file to upload
-            </span>
-            <p className="text-white/50 text-sm sm:text-base">
-              PNG, GIF, JPEG or SVG. Max 5MB.
-            </p>
-            {/* <button
+            <img
+              src=""
+              id="NFTPreview"
+              className="rounded-xl hidden w-full h-max"
+              alt=""
+            />
+            <div
+              id="Upload-ui"
+              className="gap-3 items-center justify-center flex flex-col"
+            >
+              <TiUpload className="text-purple-500 text-2xl" />
+              <b className="text-white/80 text-sm sm:text-base">Upload File</b>
+              <span className="text-white/70 text-sm sm:text-base">
+                Drag or choose your file to upload
+              </span>
+              <p className="text-white/50 text-sm sm:text-base">
+                PNG, GIF, JPEG or SVG. Max 5MB.
+              </p>
+              {/* <button
               className="py-3 px-10 flex flex-row items-center gap-2 text-white/90 font-semibold justify-center xs:justify-start text-sm sm:text-base w-full xs:w-auto bg-gradient-to-tr from-pink-500 to-purple-500 rounded-xl "
               // onClick={HandleMintNFT}
             >
               Create <FaArrowLeftLong className="-rotate-[-140deg]" />
             </button> */}
-          </div>
-        </label>
-        <input
-          id="imageUpload"
-          type="file"
-          accept=".svg, .png, .jpg, .jpeg, .gif"
-          name="image"
-          onChange={handleImageChange}
-          hidden
-        />
-        <div className="flex-1">
-          <form onSubmit={HandleMintNFT} className="flex flex-col gap-6">
-            <div className="flex flex-col gap-4">
-              <label
-                htmlFor=""
-                className="text-white/70 font-semibold text-sm sm:text-base"
-              >
-                NFT title *
-              </label>
-              <input
-                className=" bg-gray-950 text-gray-100 rounded-lg focus:ring-0 focus:dark:border-pink-500 block w-full p-2.5 dark:bg-darkBlue-600 dark:border-gray-600/30 dark:placeholder-gray-500 dark:text-white/70 text-sm sm:text-base"
-                type="text"
-                placeholder="Nft title"
-                name="name"
-                onChange={HandleOnChange}
-                required
-              />
             </div>
-            <div className="flex flex-col gap-4">
-              <label
-                htmlFor=""
-                className="text-white/70 font-semibold text-sm sm:text-base"
-              >
-                NFT description *
-              </label>
-              <textarea
-                rows={5}
-                className="bg-gray-950 text-gray-100 rounded-lg focus:ring-0 focus:dark:border-pink-500 block w-full p-2.5 dark:bg-darkBlue-600 dark:border-gray-600/30 dark:placeholder-gray-500 dark:text-white/70 text-sm sm:text-base"
-                required
-                type="text"
-                name="description"
-                onChange={HandleOnChange}
-                placeholder="Please describe your NFT"
-              />
-            </div>
-            <div className="flex flex-col gap-4">
-              <label
-                htmlFor=""
-                className="text-white/70 font-semibold text-sm sm:text-base"
-              >
-                Creator
-              </label>
-              <input
-                className=" bg-gray-950 text-gray-100 rounded-lg focus:ring-0 focus:dark:border-pink-500 block w-full p-2.5 dark:bg-darkBlue-600 dark:border-gray-600/30 dark:placeholder-gray-500 dark:text-white/70 text-sm sm:text-base"
-                type="text"
-                placeholder="name of NFT creator"
-                name="creator"
-                onChange={HandleOnChange}
-                required
-              />
-            </div>
-            <div className="flex justify-between gap-6 flex-col sm:flex-row">
-              <div className="flex flex-1 flex-col gap-4">
+          </label>
+          <input
+            id="imageUpload"
+            type="file"
+            accept=".svg, .png, .jpg, .jpeg, .gif"
+            name="image"
+            onChange={handleImageChange}
+            hidden
+          />
+          <div className="flex-1">
+            <form onSubmit={HandleMintNFT} className="flex flex-col gap-6">
+              <div className="flex flex-col gap-4">
                 <label
                   htmlFor=""
                   className="text-white/70 font-semibold text-sm sm:text-base"
                 >
-                  Price ( in USD )*
+                  NFT title *
                 </label>
                 <input
-                  className="bg-gray-950 text-gray-100 rounded-lg focus:ring-0 focus:dark:border-pink-500 block w-full p-2.5 dark:bg-darkBlue-600 dark:border-gray-600/30 dark:placeholder-gray-500 dark:text-white/70 text-sm sm:text-base"
-                  type="number"
-                  placeholder="Price"
-                  name="price"
-                  step="0.0001" min="0"
-                  // pattern="[0-9]*"
+                  className=" bg-gray-950 text-gray-100 rounded-lg focus:ring-0 focus:dark:border-pink-500 block w-full p-2.5 dark:bg-darkBlue-600 dark:border-gray-600/30 dark:placeholder-gray-500 dark:text-white/70 text-sm sm:text-base"
+                  type="text"
+                  placeholder="Nft title"
+                  name="name"
                   onChange={HandleOnChange}
                   required
                 />
               </div>
-              {/* <div className="flex flex-1 flex-col gap-4">
+              <div className="flex flex-col gap-4">
+                <label
+                  htmlFor=""
+                  className="text-white/70 font-semibold text-sm sm:text-base"
+                >
+                  NFT description *
+                </label>
+                <textarea
+                  rows={5}
+                  className="bg-gray-950 text-gray-100 rounded-lg focus:ring-0 focus:dark:border-pink-500 block w-full p-2.5 dark:bg-darkBlue-600 dark:border-gray-600/30 dark:placeholder-gray-500 dark:text-white/70 text-sm sm:text-base"
+                  required
+                  type="text"
+                  name="description"
+                  onChange={HandleOnChange}
+                  placeholder="Please describe your NFT"
+                />
+              </div>
+              <div className="flex flex-col gap-4">
+                <label
+                  htmlFor=""
+                  className="text-white/70 font-semibold text-sm sm:text-base"
+                >
+                  Creator
+                </label>
+                <input
+                  className=" bg-gray-950 text-gray-100 rounded-lg focus:ring-0 focus:dark:border-pink-500 block w-full p-2.5 dark:bg-darkBlue-600 dark:border-gray-600/30 dark:placeholder-gray-500 dark:text-white/70 text-sm sm:text-base"
+                  type="text"
+                  placeholder="name of NFT creator"
+                  name="creator"
+                  onChange={HandleOnChange}
+                  required
+                />
+              </div>
+              <div className="flex justify-between gap-6 flex-col sm:flex-row">
+                <div className="flex flex-1 flex-col gap-4">
+                  <label
+                    htmlFor=""
+                    className="text-white/70 font-semibold text-sm sm:text-base"
+                  >
+                    Price ( in USD )*
+                  </label>
+                  <input
+                    className="bg-gray-950 text-gray-100 rounded-lg focus:ring-0 focus:dark:border-pink-500 block w-full p-2.5 dark:bg-darkBlue-600 dark:border-gray-600/30 dark:placeholder-gray-500 dark:text-white/70 text-sm sm:text-base"
+                    type="number"
+                    placeholder="Price"
+                    name="price"
+                    step="0.0001"
+                    min="0"
+                    // pattern="[0-9]*"
+                    onChange={HandleOnChange}
+                    required
+                  />
+                </div>
+                {/* <div className="flex flex-1 flex-col gap-4">
                 <label
                   htmlFor=""
                   className="text-white/70 font-semibold text-sm sm:text-base"
@@ -683,67 +664,65 @@ export default function NftCreatorForm() {
                   required
                 />
               </div> */}
-            </div>
+              </div>
 
-            <div className="flex flex-col gap-4">
-              <label
-                htmlFor=""
-                className="text-white/70 font-semibold text-sm sm:text-base"
-              >
-                Select a category
-              </label>
-              <select
-                id="countries"
-                className="bg-gray-950 text-gray-100 rounded-lg focus:ring-0 focus:dark:border-pink-500 block w-full p-2.5 dark:bg-darkBlue-600 dark:border-gray-600/30 dark:placeholder-gray-500 dark:text-white/70 text-sm sm:text-base"
-                name="category"
-                onChange={HandleOnChange}
-                required
-              >
-                <option value="gaming">Gaming</option>
-                <option value="sports">Sports</option>
-                <option value="music">Music</option>
-                <option value="art">Art</option>
-                <option value="photography">Photography</option>
-                <option value="utility">Utility</option>
-              </select>
-            </div>
+              <div className="flex flex-col gap-4">
+                <label
+                  htmlFor=""
+                  className="text-white/70 font-semibold text-sm sm:text-base"
+                >
+                  Select a category
+                </label>
+                <select
+                  id="countries"
+                  className="bg-gray-950 text-gray-100 rounded-lg focus:ring-0 focus:dark:border-pink-500 block w-full p-2.5 dark:bg-darkBlue-600 dark:border-gray-600/30 dark:placeholder-gray-500 dark:text-white/70 text-sm sm:text-base"
+                  name="category"
+                  onChange={HandleOnChange}
+                  required
+                >
+                  <option value="gaming">Gaming</option>
+                  <option value="sports">Sports</option>
+                  <option value="music">Music</option>
+                  <option value="art">Art</option>
+                  <option value="photography">Photography</option>
+                  <option value="utility">Utility</option>
+                </select>
+              </div>
 
-            <div className="flex flex-col gap-4">
-              <label
-                htmlFor=""
-                className="text-white/70 font-semibold text-sm sm:text-base"
-              >
-                Properties
-              </label>
-              <input
-                className="bg-gray-950 text-gray-100 rounded-lg focus:ring-0 focus:dark:border-pink-500 block w-full p-2.5 dark:bg-darkBlue-600 dark:border-gray-600/30 dark:placeholder-gray-500 dark:text-white/70 text-sm sm:text-base"
-                type="text"
-                placeholder="Properties ex. red,blue,sky"
-                onChange={HandleProperties}
-                required
-              />
-            </div>
-            <div className="flex gap-5 mb-5">
-              <button
-                type="submit"
-                className="text-white bg-[#8149F4] hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#8149F4] dark:hover:bg-purple-700 dark:focus:ring-purple-800"
-              >
-                Submit
-              </button>
-              <Link
-                type="submit"
-                to="/myProfile"
-                className="text-white bg-darkBlue-700 hover:bg-darkBlue-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 cursor-pointer text-center dark:bg-darkBlue-500 dark:hover:bg-darkBlue-600 dark:focus:ring-darkBlue-400"
-              >
-                Cancel
-              </Link>
-            </div>
-          </form>
+              <div className="flex flex-col gap-4">
+                <label
+                  htmlFor=""
+                  className="text-white/70 font-semibold text-sm sm:text-base"
+                >
+                  Properties
+                </label>
+                <input
+                  className="bg-gray-950 text-gray-100 rounded-lg focus:ring-0 focus:dark:border-pink-500 block w-full p-2.5 dark:bg-darkBlue-600 dark:border-gray-600/30 dark:placeholder-gray-500 dark:text-white/70 text-sm sm:text-base"
+                  type="text"
+                  placeholder="Properties ex. red,blue,sky"
+                  onChange={HandleProperties}
+                  required
+                />
+              </div>
+              <div className="flex gap-5 mb-5">
+                <button
+                  type="submit"
+                  className="text-white bg-[#8149F4] hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#8149F4] dark:hover:bg-purple-700 dark:focus:ring-purple-800"
+                >
+                  Submit
+                </button>
+                <Link
+                  type="submit"
+                  to="/myProfile"
+                  className="text-white bg-darkBlue-700 hover:bg-darkBlue-800 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 cursor-pointer text-center dark:bg-darkBlue-500 dark:hover:bg-darkBlue-600 dark:focus:ring-darkBlue-400"
+                >
+                  Cancel
+                </Link>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-
-
     </div>
   );
 }
