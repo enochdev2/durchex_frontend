@@ -25,14 +25,6 @@ function NftBuy({ price, nftId, ComponentLoad, isListed }) {
       SuccessToast(
         <div>
           NFT Buy successfully 🎉 ! <br />
-          <div className=" line-clamp-1">
-            Gas used :
-            <b className=" font-normal text-darkBlue-50">
-              {" "}
-              {response.gasUsed.toString()}
-            </b>{" "}
-            in wei
-          </div>
         </div>
       );
     } catch (error) {

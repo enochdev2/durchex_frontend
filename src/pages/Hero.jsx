@@ -50,7 +50,6 @@ function App() {
           };
 
           // Fetch the tokenURI and metadata using the tokenId
-          // const tokenURI = await nftContract.methods.tokenURI(formattedItem.tokenId).call();
           const url = await tokenURI(formattedItem.tokenId);
 
           // Fetch metadata from the tokenURI

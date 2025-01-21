@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ICOContent } from "../Context";
 import { ethers } from "ethers";
+import { ErrorToast } from "../app/Toast/Error";
 
 const NFTCard = ({ collectionName, currentlyListed,
   itemId,
@@ -29,6 +30,7 @@ const NFTCard = ({ collectionName, currentlyListed,
 
     const handleBuy = async () => {
       // event.preventDefault();
+      if(!address) return ErrorToast("Connect you Wallet")
       const vendorNFTAddress = import.meta.env.VITE_APP_VENDORNFT_CONTRACT_ADDRESS;
         console.log("🚀 ~ HandleMintNFT ~ vendorNFTAddress:", vendorNFTAddress);
     
@@ -40,14 +42,7 @@ const NFTCard = ({ collectionName, currentlyListed,
               SuccessToast(
                 <div>
                   NFT Listed successfully 🎉 ! <br />
-                  <div className=" line-clamp-1">
-                    Gas used :
-                    <b className=" font-normal text-darkBlue-50">
-                      {" "}
-                      {response.gasUsed.toString()}
-                    </b>{" "}
-                    in wei
-                  </div>
+                      {/* {response.gasUsed.toString()} */}
                 </div>
               );
               setTimeout(() => {

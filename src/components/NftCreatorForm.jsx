@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { Upload, SearchIcon } from "lucide-react";
 import { Toaster } from "react-hot-toast";
@@ -249,18 +249,10 @@ export default function NftCreatorForm() {
             SuccessToast(
               <div>
                 NFT Mint successfully 🎉 ! <br />
-                <div className=" line-clamp-1">
-                  Gas used :
-                  <b className=" font-normal text-darkBlue-50">
-                    {" "}
-                    {response.gasUsed.toString()}
-                  </b>{" "}
-                  in wei
-                </div>
               </div>
             );
             setTimeout(() => {
-              Navigate("/myProfile/myNFTs");
+              Navigate("/");
             }, 3000);
           })
           .catch((error) => {
@@ -278,18 +270,10 @@ export default function NftCreatorForm() {
             SuccessToast(
               <div>
                 NFT Mint successfully 🎉 ! <br />
-                <div className=" line-clamp-1">
-                  Gas used :
-                  <b className=" font-normal text-darkBlue-50">
-                    {" "}
-                    {response.gasUsed.toString()}
-                  </b>{" "}
-                  in wei
-                </div>
               </div>
             );
             setTimeout(() => {
-              Navigate("/myProfile/myNFTs");
+              Navigate("/");
             }, 3000);
           })
           .catch((error) => {

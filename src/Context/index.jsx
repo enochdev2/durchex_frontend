@@ -3,7 +3,6 @@ import { ethers } from "ethers";
 import React, { createContext, useEffect, useState } from "react";
 import { ErrorToast } from "../app/Toast/Error.jsx";
 
-
 //INTERNAL IMPORT
 import {
   ContractInstance,
@@ -12,7 +11,7 @@ import {
   VendorNFTs_CONTRACT,
   PINATA_API_KEY,
   PINATA_SECRET_KEY,
-  shortenAddress
+  shortenAddress,
 } from "./constants";
 
 export const ICOContent = createContext();
@@ -23,9 +22,6 @@ export const Index = ({ children }) => {
   const [accountBalance, setAccountBalance] = useState(null);
   const [loader, setLoader] = useState(false);
   const [currency, setCurrency] = useState("MATIC");
-
-  // const notifySuccess = (msg) => toast.success(msg, { duration: 2000 });
-  // const notifyError = (msg) => toast.error(msg, { duration: 2000 });
 
   //FUNCTION
   const checkIfWalletConnected = async () => {
@@ -114,7 +110,6 @@ export const Index = ({ children }) => {
   const isAuthorizedVendor = async (address) => {
     try {
       const response = await ContractInstance.isAuthorizedVendor(address);
-      // WarringToast("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in addVendor ( Hook )");
@@ -125,7 +120,6 @@ export const Index = ({ children }) => {
   const addVendor = async (VendorAddress) => {
     try {
       const response = await ContractInstance.addVendor(VendorAddress);
-      // WarringToast("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in addVendor ( Hook )");
@@ -136,7 +130,6 @@ export const Index = ({ children }) => {
   const removeVendor = async (VendorAddress) => {
     try {
       const response = await ContractInstance.removeVendor(VendorAddress);
-      // WarringToast("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in addVendor ( Hook )");
@@ -145,15 +138,12 @@ export const Index = ({ children }) => {
   };
 
   const vendorMint = async (uri, nftMarketplaceAddress) => {
-    // const ether = Number(_price / (await ethereumUsd())).toFixed(18);
-    // const _wei = web3.utils.toWei(ether, "ether");
     try {
       const response = await ContractInstance.vendorMint(
         uri,
         nftMarketplaceAddress
       );
 
-      // WarringToast("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in VendorNFT ( Hook )");
@@ -163,9 +153,6 @@ export const Index = ({ children }) => {
 
   const publicMint = async (uri, nftMarketplaceAddress) => {
     try {
-      // console.log("🚀 ~ publicMint ~ ContractInstance:", ContractInstance);
-      // const price = ethers.utils.formatEther(prices);
-
       const response = await ContractInstance.publicMint(
         uri,
         nftMarketplaceAddress,
@@ -187,7 +174,6 @@ export const Index = ({ children }) => {
   const withdraw = async (_account) => {
     try {
       const response = await ContractInstance.withdraw();
-      WarringToast("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in addVendor ( Hook )");
@@ -200,7 +186,6 @@ export const Index = ({ children }) => {
       const newFees = ethers.utils.parseUnits(newFee, "ether");
       const uint256Value = ethers.BigNumber.from(newFees);
       const response = await ContractInstance.setMintingFee(uint256Value);
-      // WarringToast("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in addVendor ( Hook )");
@@ -210,10 +195,8 @@ export const Index = ({ children }) => {
 
   const getNFTById_ = async (id) => {
     try {
-      const contract = await VendorNFTs_CONTRACT()
+      const contract = await VendorNFTs_CONTRACT();
       const response = await contract.getNFTById(id);
-      // WarringToast("Waiting for transaction ....");
-      console.log("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in addVendor ( Hook )");
@@ -223,9 +206,8 @@ export const Index = ({ children }) => {
 
   const tokenURI = async (tokenId) => {
     try {
-      const contract = await VendorNFTs_CONTRACT()
+      const contract = await VendorNFTs_CONTRACT();
       const response = await contract.tokenURI(tokenId);
-      console.log("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in addVendor ( Hook )");
@@ -237,14 +219,8 @@ export const Index = ({ children }) => {
   const listNFT = async (nftContractAddress, tokenIds, prices) => {
     console.log("🚀 ~ listNFT ~ prices:", prices);
     try {
-      console.log("🚀 ~ publicMint ~ ContractInstance:", nftContractAddress);
-
       const listingFe = await getListingFee();
 
-      // const listingFeeString = listingFe.toString();
-      // console.log("Listing Fee (as string):", listingFeeString);
-
-      // Convert BigNumber (in wei) to Ether
       const listingFeeInEther = ethers.utils.formatEther(listingFe);
       console.log("Listing Fee (in Ether):", listingFeeInEther);
 
@@ -253,7 +229,6 @@ export const Index = ({ children }) => {
       const uint256Value = ethers.BigNumber.from(price);
       const listingFee = ethers.BigNumber.from(listingFe);
       console.log("🚀 ~ listNFT ~ listingFee:", listingFee);
-      // const tokenId = parseInt(tokenIds);
       const tokenId = ethers.BigNumber.from(tokenIds);
 
       const response = await MarketContractInstance.listNFT(
@@ -265,8 +240,7 @@ export const Index = ({ children }) => {
         }
       );
 
-      // WarringToast("Waiting for transaction ....");
-      // return response;
+      return response;
     } catch (error) {
       console.log(error + " in useMintNFT in VendorNFT ( Hook )");
       return error;
@@ -278,7 +252,6 @@ export const Index = ({ children }) => {
     console.log("🚀 ~ buyNFT ~ itemIds:", itemIds);
     try {
       console.log("🚀 ~ publicMint ~ ContractInstance:", nftContractAddress);
-      // const gasPrice = await provider.getGasPrice();
 
       const itemId = ethers.BigNumber.from(itemIds);
       const price = ethers.utils.formatEther(prices);
@@ -293,7 +266,6 @@ export const Index = ({ children }) => {
         }
       );
 
-      // WarringToast("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in VendorNFT ( Hook )");
@@ -312,7 +284,6 @@ export const Index = ({ children }) => {
         uint256Value
       );
 
-      // WarringToast("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in VendorNFT ( Hook )");
@@ -331,7 +302,6 @@ export const Index = ({ children }) => {
         uint256Value
       );
 
-      // WarringToast("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in VendorNFT ( Hook )");
@@ -349,12 +319,8 @@ export const Index = ({ children }) => {
         "0x6b9ebd1dd653c48daa4b167491373bcbf8d7712c"
       );
 
-      // const newFee = ethers.utils.parseUnits(address, "ether");
-      // const uint256Value = ethers.BigNumber.from(newFee);
-
       console.log("🚀 ~ number:", address);
 
-      // WarringToast("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in VendorNFT ( Hook )");
@@ -386,7 +352,6 @@ export const Index = ({ children }) => {
     try {
       const response = await MarketContractInstance.getListingFee();
 
-      // WarringToast("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in VendorNFT ( Hook )");
@@ -398,9 +363,8 @@ export const Index = ({ children }) => {
     try {
       const contract = await NFTMarketplaceCONTRACT();
       const response = await contract.getActiveListings();
-      console.log("🚀 ~ getActiveListings ~ response:", response)
+      console.log("🚀 ~ getActiveListings ~ response:", response);
 
-      console.log("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in VendorNFT ( Hook )");
@@ -413,7 +377,6 @@ export const Index = ({ children }) => {
       const contract = await NFTMarketplaceCONTRACT();
       const response = await contract.getAllListings();
 
-      console.log("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in VendorNFT ( Hook )");
@@ -425,7 +388,6 @@ export const Index = ({ children }) => {
     try {
       const response = await MarketContractInstance.getMyNFTs();
 
-      console.log("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in VendorNFT ( Hook )");
@@ -440,7 +402,6 @@ export const Index = ({ children }) => {
       let itemId = itemIds.toNumber();
       const response = await MarketContractInstance.getNFTById(itemId);
 
-      console.log("Waiting for transaction ....");
       return response;
     } catch (error) {
       console.log(error + " in useMintNFT in VendorNFT ( Hook )");
@@ -501,4 +462,3 @@ export const Index = ({ children }) => {
     </ICOContent.Provider>
   );
 };
-
